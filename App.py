@@ -5,7 +5,7 @@ from streamlit_chat import message
 # Initialize the GenAI client
 import google.generativeai as genai
 
-genai_api = st.secrets["genai_api_key"]
+genai_api_key = st.secrets["genai_api_key"]
 
 # Add custom logos for the assistant and user
 user_logo = "qonkar-technologies-logo.svg" # Path to Qonkar AI Assistant logo
@@ -28,7 +28,7 @@ if 'entered_prompt' not in st.session_state:
 if 'context' not in st.session_state:
     st.session_state['context'] = []  # Store the conversation history
 
-genai.configure(api_key=genai_api)
+genai.configure(api_key=genai_api_key)
 
 generation_config = {
     "temperature": 1,
