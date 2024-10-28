@@ -5,10 +5,6 @@ from streamlit_chat import message
 # Initialize the GenAI client
 import google.generativeai as genai
 
-# Google Generative AI (GenAI) API key
-# genai_api_key = "AIzaSyCRvWyiexLtAbHAfPHSq2TRXncODn4Ab0A"
-# os.environ["API_KEY"] = genai_api_key
-
 genai_api_key = st.secrets["genai_api_key"]
 
 # Add custom logos for the assistant and user
@@ -31,8 +27,6 @@ if 'entered_prompt' not in st.session_state:
 
 if 'context' not in st.session_state:
     st.session_state['context'] = []  # Store the conversation history
-
-# genai.configure(api_key=os.environ["API_KEY"])
 
 genai.configure(api_key=genai_api_key)
 
