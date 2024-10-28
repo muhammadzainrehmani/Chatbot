@@ -3,4 +3,3 @@ streamlit-chat
 python-dotenv
 langchain
 google.generativeai
-PyYAML
