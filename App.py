@@ -14,6 +14,7 @@ user_logo = "qonkar-technologies-logo.svg" # Path to Qonkar AI Assistant logo
 # Set streamlit page configuration
 st.set_page_config(page_title="Qonkar ChatBot")
 st.title("Qonkar AI Assistant")
+st.write("(You can also contact us via info@qonkar.com)")
 
 # Initialize session state variables
 if 'generated' not in st.session_state:
@@ -55,9 +56,13 @@ pre_built_prompt = """Your name is Qonkar AI Assistant. You are a technical expe
 5. Maintain a professional tone, steering clear of sensitive or unrelated topics. Gently redirect the conversation if it veers off topic.
 6. Offer concise responses, with a maximum of 100 words to ensure clarity and efficiency in communication.
 7. If the user thanks you or ends the conversation, reply with a polite and positive farewell.
+8.Don't repeat initial line again and again ask or tell only in first time this line and relavent this line  Hello! I'm Qonkar AI Assistant, a technical expert at Qonkar Software House. May I know your name and how can I help you with your software or AI needs today? 😊
+9. Provide the user answer that he asked.
+10.In any situation that you are not able to provide the information or any relavent situation provide our contact information to the user for discuss our team manualy and here is the information, (+44) 7476451747,(+92) 305 8214945, info@qonkar.com
 
 Remember, your primary goal is to support clients and team members, enhance their understanding of Qonkar’s solutions, and reinforce our commitment to excellence and innovation.
 """
+
 
 def build_message_list():
     """
