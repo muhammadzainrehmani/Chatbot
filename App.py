@@ -14,7 +14,7 @@ user_logo = "qonkar-technologies-logo.svg" # Path to Qonkar AI Assistant logo
 # Set streamlit page configuration
 st.set_page_config(page_title="Qonkar ChatBot")
 st.title("Qonkar AI Assistant")
-st.write("(You can also contact us via info@qonkar.com)")
+st.write("**(You can also contact us via: info@qonkar.com)**")
 
 # Initialize session state variables
 if 'generated' not in st.session_state:
@@ -28,6 +28,8 @@ if 'entered_prompt' not in st.session_state:
 
 if 'context' not in st.session_state:
     st.session_state['context'] = []  # Store the conversation history
+
+# genai.configure(api_key=os.environ["API_KEY"])
 
 genai.configure(api_key=genai_api_key)
 
@@ -49,20 +51,35 @@ chat_session = model.start_chat(history=[])
 
 pre_built_prompt = """Your name is Qonkar AI Assistant. You are a technical expert at Qonkar Software House, here to assist clients, partners, and team members with questions about our software solutions, AI services, and technical support. Your tone is professional, helpful, and courteous.
 
-1. Begin conversation with a friendly greeting, ask the user’s name, and inquire how you can assist them with their software or AI needs, if user ask directly our need than don't assist them with their software or AI needs, provide the answer of the user.
-2. Provide clear, accurate, and concise information on Qonkar’s services, which include only  software development, Custom Website, Shopify Store, Digital Marketing(all services that cover in digital marketing) and in AI solutions working in Generative AI( API Integration and RAG System). When user ask any other services that are not related to above than you say no Untill Qonkar not provide this services.
+1.. Begin conversation with a friendly greeting, ask the user’s name, and inquire how you can assist them with their software or AI needs, if user ask directly our need than don't assist them, provide the answer of the user Directly.
+2.. Provide clear, accurate, and concise information on Qonkar’s services, which include only  software development(Custom software development), Custom Website, Shopify Store, Digital Marketing(all services that cover in digital marketing) and in AI solutions working in Generative AI( API Integration),RAG(or relavent services of RAG that RAG can solve the problem like chatbot, etc), LLM and NLP Relavent task. When user ask any other services that are not related to above than you say no Untill Qonkar not provide this services.
 3. Emphasize our commitment to quality, innovation, and customer satisfaction when discussing Qonkar’s offerings.
 4. For technical support inquiries, ask for any specific issues or details to provide the most relevant assistance.
 5. Maintain a professional tone, steering clear of sensitive or unrelated topics. Gently redirect the conversation if it veers off topic.
 6. Offer concise responses, with a maximum of 100 words to ensure clarity and efficiency in communication.
-7. If the user thanks you or ends the conversation, reply with a polite and positive farewell.
-8. Don't repeat initial line again and again ask or tell only in first time this line and relavent this line  Hello! I'm Qonkar AI Assistant, a technical expert at Qonkar Software House. May I know your name and how can I help you with your software or AI needs today? 😊
-9. Provide the user answer that he asked.
-10.In any situation that you are not able to provide the information or any relavent situation provide our contact information to the user for discuss our team manualy and here is the information, (+44) 7476451747,(+92) 305 8214945, info@qonkar.com
+7. Don't repeat initial line again and again ask or tell only in first time if need mean when user ask direct specific question than not write this line and relavent this line  Hello! I'm Qonkar AI Assistant, a technical expert at Qonkar Software House. May I know your name and how can I help you with your software or AI needs today? 😊
+8. Provide the user answer that he asked.
+9.In any situation that you are not able to provide the information or any relavent situation provide our contact information to the user for discuss our team manualy and here is the information, (+44) 7476451747,(+92) 305 8214945, info@qonkar.com
+10.If the user thanks you or ends the conversation, reply with a polite and positive farewell.
 
 Remember, your primary goal is to support clients and team members, enhance their understanding of Qonkar’s solutions, and reinforce our commitment to excellence and innovation.
 """
 
+# # Sample Prompts
+# sample_prompts = [
+#     "Tell me more about Qonkar Technologies.",
+#     "What AI solutions does Qonkar offer?",
+#     "Can Qonkar build a chatbot for my Organization?",
+#     "Can Qonkar build a custom website for my business?",
+# ]
+
+# Sample Prompts
+sample_prompts = [
+    "Could you provide more information about Qonkar Technologies?",
+    "What AI solutions are offered by Qonkar Technologies?",
+    "Does Qonkar Technologies develop custom chatbots for organizations?",
+    "Can Qonkar Technologies create a tailored website for my business?",
+]
 
 
 def build_message_list():
@@ -94,6 +111,7 @@ def generate_response():
 
     return ai_response
 
+
 # Define function to submit user input
 def submit():
     # Set entered_prompt to the current value of prompt_input
@@ -101,21 +119,46 @@ def submit():
     # Clear prompt_input
     st.session_state.prompt_input = ""
 
+
+# Define function to handle prompt clicks
+def handle_prompt_click(prompt):
+    st.session_state.prompt_input = prompt  # Update the input field
+    st.session_state.entered_prompt = prompt  # Trigger the response generation
+    submit() # submit input value by enter or by click
+
+
+# Display sample prompts as buttons, All in single line
+# st.write("**Sample Prompts:**")
+# cols = st.columns(len(sample_prompts))  # Create columns for better layout
+# for i, prompt in enumerate(sample_prompts):
+#     with cols[i]:
+#         if st.button(prompt):
+#             handle_prompt_click(prompt)
+
+# Display sample prompts as buttons, each in single single Row
+st.write("**Sample Prompts:**")
+for prompt in sample_prompts:
+    if st.button(prompt): # Display each button on a new line
+        handle_prompt_click(prompt)
+
+
+
 # Create a text input for user
-st.text_input('YOU: ',  key='prompt_input', on_change=submit)
+st.text_input('**YOU:** ',  key='prompt_input', on_change=submit)
 
 if st.session_state.entered_prompt != "":
-    # Get user query
-    user_query = st.session_state.entered_prompt
+    with st.spinner("Generating response..."): # Add spinner here
+        # Get user query
+        user_query = st.session_state.entered_prompt
 
-    # Append user query to past queries
-    st.session_state.past.append(user_query)
+        # Append user query to past queries
+        st.session_state.past.append(user_query)
 
-    # Generate response
-    output = generate_response()
+        # Generate response
+        output = generate_response()
 
-    # Append AI response to generated responses
-    st.session_state.generated.append(output)
+        # Append AI response to generated responses
+        st.session_state.generated.append(output)
 
 
 # Display the chat history
