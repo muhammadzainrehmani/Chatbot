@@ -7,7 +7,8 @@ This repository contains a Streamlit-based chatbot application that utilizes Goo
 1.	**Gemini API Integration:** Leverages the power of Google's Gemini for natural language understanding and generation.
 2.	**Interactive Chat Interface:** Streamlit provides a user-friendly interface for engaging in conversations with the chatbot.
 3.	**Sample Prompts:** Offers clickable sample prompts to guide user interaction and provide examples of effective queries.
-4.	**Automatic Prompt Submission:** Clicking a sample prompt automatically populates the input field and submits it to the Gemini API.
+4.	**Automatic Prompt Submission:** Clicking a sample prompt automatically populates the input field and submits it to the Gemini 
+          API.
 5.	**Loading Spinner:** Displays a visual loading spinner while waiting for the chatbot's response.
 6.	**Conversation History:**  Maintains a history of the conversation for context and reference.
 
@@ -16,16 +17,16 @@ This repository contains a Streamlit-based chatbot application that utilizes Goo
 
 1. **Clone the repository:**
 
-   git clone https://github.com/your-username/your-repository-name.git
-1.	**Navigate to the project directory:**
-	    cd your-repository-name
+         git clone https://github.com/your-username/your-repository-name.git
+2.	**Navigate to the project directory:**
+	  cd your-repository-name
     
-2.	**Create a virtual environment (recommended):**
-      python3 -m venv .venv
+3.	**Create a virtual environment (recommended):**
+          python3 -m venv .venv
   	  source .venv/bin/activate  # On Windows: .venv\Scripts\activate
     
 4.	**Install dependencies:**
-      pip install -r requirements.txt
+          pip install -r requirements.txt
     
 5.	**Set up your Gemini API Key:**
     o	Obtain a Gemini API key from Google AI Platform.
@@ -57,7 +58,7 @@ Or you can directly paste it in the model parameter at the beginning of app.py
     Contributions are welcome! Please feel free to open issues and submit pull requests.
 
 **License**
-    [Specify your license here, e.g., MIT License]
+    []
 
 **Contact**
     Qonkar - info@qonkar.com
